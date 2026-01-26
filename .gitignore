@@ -1,18 +1,4 @@
-# Build artifacts
 build/
 *.o
 *.out
 
-# CMake
-CMakeCache.txt
-CMakeFiles/
-cmake_install.cmake
-Makefile
-
-# Editor files
-.vscode/
-*.swp
-*.swo
-
-# OS junk
-.DS_Store
