@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Book Alpha Engine — Explainable Replay</title>
+
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 0;
+      color: #2d3436;
+    }
+
+    header {
+      background: linear-gradient(90deg, #1e272e, #2d3436);
+      color: white;
+      padding: 18px 30px;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .panel {
+      background: white;
+      border-radius: 8px;
+      padding: 16px 18px;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    }
+
+    .panel h3 {
+      margin-top: 0;
+      font-size: 16px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 6px;
+    }
+
+    .controls button,
+    .upload button {
+      padding: 8px 18px;
+      border: none;
+      border-radius: 5px;
+      background-color: #0984e3;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+      margin-right: 10px;
+    }
+
+    .controls button:hover,
+    .upload button:hover {
+      background-color: #74b9ff;
+    }
+
+    .upload input[type="file"] {
+      margin-right: 10px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .full {
+      grid-column: span 2;
+    }
+
+    pre {
+      margin: 0;
+      font-family: Consolas, monospace;
+      font-size: 13px;
+      white-space: pre-wrap;
+    }
+
+    .decision {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    .BUY { color: #00b894; }
+    .SELL { color: #d63031; }
+    .HOLD { color: #636e72; }
+
+    footer {
+      text-align: center;
+      padding: 14px;
+      font-size: 13px;
+      color: #636e72;
+      background: #ecf0f1;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  Order Book Alpha Engine — Deterministic Replay & Explainability
+</header>
+
+<div class="container">
+
+  <!-- INPUT PANEL -->
+  <div class="panel upload">
+    <h3>Input — Upload Market Events CSV</h3>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <input type="file" name="file" accept=".csv" required>
+      <button type="submit">Upload & Run Engine</button>
+    </form>
+    <p style="font-size:12px;color:#555;margin-top:8px;">
+      CSV format: <b>timestamp_ns, is_buy (1/0), price, quantity</b>
+    </p>
+  </div>
+
+  <!-- CONTROLS -->
+  <div class="panel controls">
+    <h3>Replay Controls</h3>
+    <button onclick="step()">Step</button>
+    <button onclick="play()">Play</button>
+    <button onclick="pause()">Pause</button>
+    <button onclick="reset()">Reset</button>
+  </div>
+
+  <!-- DATA GRID -->
+  <div class="grid">
+
+    <div class="panel">
+      <h3>Event</h3>
+      <pre id="event"></pre>
+    </div>
+
+    <div class="panel">
+      <h3>Order Book Metrics</h3>
+      <pre id="metrics"></pre>
+    </div>
+
+    <div class="panel">
+      <h3>Alpha Signal</h3>
+      <pre id="alpha"></pre>
+      <div id="decision" class="decision"></div>
+    </div>
+
+    <div class="panel full">
+      <h3>Explanation — Why this signal?</h3>
+      <pre id="explanation"></pre>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  Created & Developed by <b>OM BAROT</b>
+</footer>
+
+<script src="/static/app.js"></script>
+
+</body>
+</html>

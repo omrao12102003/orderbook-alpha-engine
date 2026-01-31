@@ -31,7 +31,7 @@ public:
         if (it == levels_.end()) return false;
 
         bool ok = it->second.remove(order_id);
-        if (it->second.queue.empty()) {
+        if (ok && it->second.totalQuantity() == 0) {
             levels_.erase(it);
         }
         return ok;
@@ -43,7 +43,7 @@ public:
         if (it == levels_.end()) return false;
 
         bool ok = it->second.reduce(order_id, reduce_qty);
-        if (it->second.queue.empty()) {
+        if (ok && it->second.totalQuantity() == 0) {
             levels_.erase(it);
         }
         return ok;
@@ -54,8 +54,8 @@ public:
         if (levels_.empty()) return false;
 
         auto it = (side_ == Side::BID)
-            ? std::prev(levels_.end())   // best bid
-            : levels_.begin();           // best ask
+            ? std::prev(levels_.end())
+            : levels_.begin();
 
         auto& level = it->second;
 
@@ -71,7 +71,7 @@ public:
             }
         }
 
-        if (level.queue.empty()) {
+        if (level.totalQuantity() == 0) {
             levels_.erase(it);
         }
 
@@ -91,4 +91,3 @@ private:
 };
 
 } // namespace orderbook
-

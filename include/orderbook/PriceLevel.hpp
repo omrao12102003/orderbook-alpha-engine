@@ -35,10 +35,13 @@ struct alignas(32) PriceLevel {
     }
 
     bool reduce(int64_t order_id, int32_t qty) {
-        for (auto& o : queue) {
-            if (o.order_id == order_id) {
-                if (o.quantity < qty) return false;
-                o.quantity -= qty;
+        for (auto it = queue.begin(); it != queue.end(); ++it) {
+            if (it->order_id == order_id) {
+                if (it->quantity < qty) return false;
+                it->quantity -= qty;
+                if (it->quantity == 0) {
+                    queue.erase(it);
+                }
                 return true;
             }
         }

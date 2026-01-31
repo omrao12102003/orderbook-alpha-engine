@@ -1,4 +1,13 @@
+# build artifacts
 build/
 *.o
-*.out
+*.exe
 
+# runtime outputs
+outputs/*.csv
+ui/backend/alpha_stream.csv
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.vscode/
