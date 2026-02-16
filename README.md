@@ -1,8 +1,8 @@
-# 🚀 Order Book Alpha Signal Engine (Phase 1–4)
+# Order Book Alpha Signal Engine (Phase 1–4)
 
 This project demonstrates how professional trading systems analyze **order book data** to generate BUY / SELL / HOLD signals.
 
-It is written in **C++17**, designed step-by-step, and explained so **even beginners can understand it**.
+
 
 ---
 
@@ -28,7 +28,7 @@ Price moves when **buying pressure** or **selling pressure** dominates.
 4. Generates BUY / SELL / HOLD signals
 
 This project **does NOT place real trades**.  
-It focuses only on **signal generation** (Phase 1–4).
+It focuses only on **signal generation**
 
 ---
 
@@ -164,6 +164,6 @@ make
 
 ## Author
 
-Omhitendra Kumar Barot  
+Om Barot  
 B.Tech CSE, VIT Vellore (2026)  
 Interest: Quantitative Finance & Trading Systems
