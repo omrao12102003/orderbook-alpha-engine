@@ -1,4 +1,4 @@
-# Order Book Alpha Signal Engine (Phase 1–4)
+# Order Book Alpha Signal Engine 
 
 This project demonstrates how professional trading systems analyze **order book data** to generate BUY / SELL / HOLD signals.
 
