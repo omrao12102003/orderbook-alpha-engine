@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Order Book Alpha Engine</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+  --bg: #0b0e14;
+  --panel: #121826;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --accent: #38bdf8;
+  --green: #22c55e;
+  --red: #ef4444;
+  --border: #1f2937;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+header {
+  padding: 20px;
+  background: linear-gradient(90deg, #020617, #020617);
+  border-bottom: 1px solid var(--border);
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+  margin-bottom: 20px;
+}
+
+.panel h3 {
+  margin-top: 0;
+  color: var(--accent);
+  font-size: 15px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 6px;
+}
+
+button {
+  background: var(--accent);
+  border: none;
+  color: black;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+input[type="file"] {
+  color: var(--text);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+pre {
+  margin: 0;
+  white-space: pre-wrap;
+  font-family: Consolas, monospace;
+  font-size: 13px;
+}
+
+.decision {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.BUY { color: var(--green); }
+.SELL { color: var(--red); }
+.HOLD { color: var(--muted); }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+th, td {
+  border: 1px solid var(--border);
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  color: var(--accent);
+}
+
+footer {
+  text-align: center;
+  padding: 16px;
+  color: var(--muted);
+  font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+Order Book Alpha Engine — Explainable Microstructure Replay
+</header>
+
+<div class="container">
+
+<div class="panel">
+<h3>📥 Input — Upload Market Events CSV</h3>
+<form action="/upload" method="post" enctype="multipart/form-data">
+  <input type="file" name="file" accept=".csv" required>
+  <button type="submit">Run Engine</button>
+</form>
+</div>
+
+<div class="panel">
+<h3>📄 CSV Input Parameters (Required)</h3>
+
+<table>
+<tr><th>Column</th><th>Description</th><th>Rules</th></tr>
+<tr><td>timestamp_ns</td><td>Event time in nanoseconds</td><td>Strictly increasing</td></tr>
+<tr><td>is_buy</td><td>Order side (1 = BUY, 0 = SELL)</td><td>Only 1 or 0</td></tr>
+<tr><td>price</td><td>Order price</td><td>Positive decimal</td></tr>
+<tr><td>quantity</td><td>Order size / volume</td><td>Positive integer</td></tr>
+</table>
+</div>
+
+<div class="panel">
+<h3>🎮 Replay Controls</h3>
+<button onclick="step()">Step</button>
+<button onclick="play()">Play</button>
+<button onclick="pause()">Pause</button>
+<button onclick="reset()">Reset</button>
+</div>
+
+<div class="grid">
+
+<div class="panel">
+<h3>Event</h3>
+<pre id="event"></pre>
+</div>
+
+<div class="panel">
+<h3>Order Book Metrics</h3>
+<pre id="metrics"></pre>
+</div>
+
+<div class="panel">
+<h3>Alpha Signal</h3>
+<pre id="alpha"></pre>
+<div id="decision" class="decision"></div>
+</div>
+
+<div class="panel">
+<h3>Explanation</h3>
+<pre id="explanation"></pre>
+</div>
+
+</div>
+</div>
+
+<footer>
+Created & Developed by <b>OM BAROT</b>
+</footer>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

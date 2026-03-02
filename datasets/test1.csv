@@ -1,0 +1,4 @@
+timestamp_ns,event_type,is_buy,price,order_id,quantity
+1000,ADD,1,100.0,1,500
+1100,ADD,0,100.2,2,300
+1200,TRADE,1,0,0,200
